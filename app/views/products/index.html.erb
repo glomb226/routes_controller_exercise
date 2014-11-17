@@ -1,20 +1,9 @@
-<% first_product = Product.first %>
-<h2>Hello World</h2>
-<h2> I AMA View </h2>
-<p>
-Product Name: "<%= first_product.name %>"costs $<%= first_product.price %>"
-The seller for this product is "<%= first_product.user.name %>"
-</p>
-<p>
-  <% product = Product.where(:name => 'rails book').first %>
-  For the query rails book this is the product: "<%= product.name %>"
-</p><p>
-  <% cheap_product = Product.where('price > 1').first %>
-  For a cheap product query this is the first result: "<%= cheap_product.name %>" "<%=cheap_product.price%>" "<%=cheap_product.user.name %>"
-</p>
-<p>
-  Products in stock: <% stock= Product.count %> <%= stock%>
-</p>
-<p>
-  Find me in <%= Rails.root.join("app", "views", "products", __FILE__ ) %>
-</p>
+<% losts_of_products = Product.includes(:user).all %>
+<ul>
+  <% losts_of_products.each do |product| %>
+  <li>
+    Product Name: "<%= product.name %>" "Costs: <%= product.price %>"
+    Sold by <%= product.user.name %>
+  </li>
+  <% end %>
+</ul>
